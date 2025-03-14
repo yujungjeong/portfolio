@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Photoshop synthesis</title>
+
+<link rel="icon" href="./favicon_logo.svg"> <!-- 파비콘 이미지 -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" /><!-- 아이콘 -->
+
+<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.0/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.0/ScrollToPlugin.min.js"></script><link href="https://fonts.googleapis.com/css2?family=Homemade+Apple&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Homemade+Apple&family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+
+<style>
+    html {
+      --color-white: #fff;
+      --color-black: #000;
+      --color-font-darkgray: #4b4646;
+      --color-font-middlegray: #b7b7b7;
+      --color-text: #323232;
+      --color-shadow: rgba(0,0,0, .5);
+      --color-link:#81b9f1;
+    }
+    
+    body {
+      font-size: 16px;
+      line-height: 1;
+      font-family: "Roboto", "Noto Sans KR", sana-serif;
+      color:var(--color-font);
+      margin: 0;
+      padding:0;
+      -ms-overflow-style: none;
+     }
+    ::-webkit-scrollbar {
+      display: none;
+    }
+    a {
+      color:var(--color-font);
+      text-decoration: none;
+    }
+    img {
+      display: block;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+    p {
+      line-height: 1.6;
+    }
+    .pop a { text-align: center;}
+        
+    /*------------ pop 공통 ---------------*/
+    .pop_inner:after {
+      content:""; 
+      display:block; 
+      clear:both;
+    }
+    
+    /* 작품 타이틀 */
+    .pop_visual .pop_title {
+      font-size:70px; 
+      font-weight: 600; 
+      color:var(--color-white);
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -120%);
+      text-align: center;
+     }
+
+    /* 작품 서브 타이틀 */
+    .pop_inner h4 {
+      font-size:40px; 
+      font-weight: 600; 
+      color:var(--color-text); 
+      margin: 0 0 78px 0px;
+    }
+    .pop_inner p {
+      font-size:20px; 
+      font-weight: 600; 
+      color:var(--color-text); 
+      margin: 0 0 78px 0px;
+    }
+    
+    /* 작품 비주얼 영역 사이즈 */
+    .pop_visual { 
+      width: 1920px; 
+      height: 1000px; 
+    }
+    
+    /* 라인 */
+    .pop_inner .line {
+      border-top:1px solid var(--color-black); 
+      margin:12px 0 70px 0; 
+    }
+               
+        
+    /* ------------ 작품마다 수정해야함 ------------ */
+    /* 비주얼이미지 */
+    .pop_visual {
+      width: 100%; top:100%; 
+      margin-bottom:116px; 
+      background:url("./visual.jpg") center top no-repeat fixed;
+    }
+    
+    /* 설명 */
+    .pop_inner {
+      margin:0 auto; width:980px; 
+      height:300px;
+    }
+        
+        
+    /* 디테일 */
+    .pop .pop_inner .detail1 .e1 {
+      margin:0 auto; 
+      margin:80px 0 80px 0; 
+      width: 580px; 
+      box-shadow: 1px 1px 20px var(--color-shadow); 
+    }
+    .pop .pop_inner .detail2 .e2{
+      margin:0 auto; 
+      margin:50px 0 80px 0; 
+      width: 580px; 
+      box-shadow: 1px 1px 20px var(--color-shadow); 
+    }
+    .pop .pop_inner .detail3 .e3{
+      margin:0 auto; 
+      margin:50px 0 80px 0; 
+      width: 980px; 
+      box-shadow: 1px 1px 20px var(--color-shadow); 
+    }
+    .pop .pop_inner .detail4 .e4{
+      margin:0 auto; 
+      margin:50px 0 80px 0; 
+      width: 980px; 
+      box-shadow: 1px 1px 20px var(--color-shadow); 
+    }
+        
+    /* Footer */
+    .pop .pop_inner .work_footer {
+      text-align:center; 
+      color:var(--color-text); 
+      font-family:Roboto; 
+      font-size: 10px; 
+      font-weight: 600; 
+      padding :0px 0 50px 10px; 
+      margin-bottom: 0;
+    }
+        
+    /* ------------ sub page 공통 ---------- */
+    .close { 
+      position:fixed; 
+      font-size: 50px;
+      right:70px; 
+      top:30px; 
+      color:var(--color-font-middlegray); 
+    }
+    #to-top {
+      width: 42px;
+      height: 42px;
+      background-color: var(--color-font-middlegray);
+      color: var(--color-white);
+      border-radius: 10px;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: fixed;
+      bottom: 30px;
+      right: 50px;
+      z-index: 9;
+    }
+    
+    </style>
+    
+    </head>
+    
+    <body>
+        
+    <!-- 작품 페이지 -->
+    <div class="pop">
+      <div class="pop_visual">
+        <p class="pop_title">Design</p>
+      </div>
+      <div class="pop_inner">
+        <h4>Design</h4>
+          <div class="line"></div>
+
+          <p>Banner Design</p>
+          <div class="detail1"><img src="./ban1.png" alt="배너 시안" class="e1"></div>
+          <div class="detail2"><img src="./ban2.png" alt="배너 시안" class="e2"></div>
+          
+          <p>Poster Design</p>
+          <div class="detail3"><img src="./img2.jpg" alt="타이포를 이용한 포스터 " class="e3"></div>
+          <div class="detail4"><img src="./img1.jpg" alt="합성 포스터" class="e4"></div>
+          
+          <p class="work_footer">Copyright(C) 2025 Yu-jung JEONG Portfolio, all right reserved.</p>
+              
+        <p class="ex">
+
+        </p>  
+      </div>
+    
+      
+      <a href="#" class="close">x</a>
+    </div>  
+    
+    <div id="to-top">
+      <div class="material-icons">arrow_upward</div>
+    </div>
+    
+    <script>
+    document.querySelector('.close').addEventListener('click', function() {
+      window.close();
+    });
+    </script>  
+    
+    <script> 
+    const toTopEl = document.querySelector('#to-top');
+    
+    window.addEventListener('scroll', _.throttle(function(){
+    console.log(window.scrollY); //스크롤 할때마다 콘솔에 scroll이 나옴
+    if (window.scrollY > 900){
+      // 버튼 보이기
+      gsap.to('#to-top', .2, {
+        x: 0
+      });    
+    } else {
+      // 버튼 숨기기
+      gsap.to('#to-top', .2, {
+        x: 100
+      });
+    }
+    }, 300));  
+    
+    toTopEl.addEventListener('click', function () {
+    gsap.to(window, .7, {
+      scrollTo: 0
+    });
+    });
+    </script> 
+    
+    </body>
+    </html>
+    

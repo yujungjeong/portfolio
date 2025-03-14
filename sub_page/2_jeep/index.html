@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>JEEP</title>
+
+<link rel="icon" href="./jeep.svg"> <!-- 파비콘 이미지 -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" /><!-- 아이콘 -->
+
+<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.0/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.0/ScrollToPlugin.min.js"></script><link href="https://fonts.googleapis.com/css2?family=Homemade+Apple&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Homemade+Apple&family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+
+<style>
+html {
+  --color-white: #fff;
+  --color-black: #000;
+  --color-font-darkgray: #4b4646;
+  --color-font-middlegray: #b7b7b7;
+  --color-text: #323232;
+  --color-shadow: rgba(0,0,0, .5);
+  --color-link:#81b9f1;
+}
+
+body {
+  font-size: 16px;
+  line-height: 1;
+  font-family: "Roboto", "Noto Sans KR", sana-serif;
+  color:var(--color-font);
+  margin: 0;
+  padding:0;
+  -ms-overflow-style: none;
+ }
+::-webkit-scrollbar {
+  display: none;
+}
+a {
+  color:var(--color-font);
+  text-decoration: none;
+}
+img {
+  display: block;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+p {
+  line-height: 1.6;
+}
+.pop a { text-align: center;}
+    
+/*------------ pop 공통 ---------------*/
+.pop_inner:after {
+  content:""; 
+  display:block; 
+  clear:both;
+}
+.pop_visual p {
+  justify-content: center;
+  text-align:center; 
+  margin:0 auto;
+  line-height: 75px;
+}
+
+/* 작품 타이틀 */
+.pop_visual .pop_title {
+  font-size:70px; 
+  font-weight: 600; 
+  color:var(--color-white);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+ }
+ .pop span {
+  font-weight: 200;
+}
+/* 작품 서브 타이틀 */
+.pop_inner h4 {
+  font-size:40px; 
+  font-weight: 600; 
+  color:var(--color-text); 
+  margin: 0 0 98px 60px;
+}
+
+/* 작품 비주얼 영역 사이즈 */
+.pop_visual { 
+  width: 1920px; 
+  height: 1000px; 
+}
+
+/* 라인 */
+.pop_inner .line {
+  border-top:1px solid var(--color-black); 
+  margin:12px 0 30px 0; 
+}
+
+/* 작품설명 */
+.pop_inner h5 {
+  font-family:"Roboto"; 
+  font-size:23px; 
+  font-weight: 600; 
+  color:#323232; 
+}
+.pop_inner p {
+  font-family:"Roboto"; 
+  font-size:18px; 
+  font-weight: 400; 
+  color:#323232;
+}
+   
+/* 작품 상세 설명 */
+.pop_inner {position:relative;}
+.pop_inner .ex {
+  position:absolute; 
+  left:0; 
+  top:120px; 
+  font-family:"Noto Sans KR"; 
+  font-size:16px; 
+  font-weight: 400; 
+  color:#323232; 
+  margin-left: 60px;
+}
+    
+    
+/* ------------ 작품마다 수정해야함 ------------ */
+/* 비주얼이미지 */
+.pop_visual {
+  width: 100%; top:100%; 
+  margin-bottom:116px; 
+  background:url("./je_visual.png") center top no-repeat fixed;
+}
+
+/* 설명 */
+.pop_inner {
+  margin:0 auto; width:980px; 
+  height:300px;
+}
+.pop_inner .type, .color, .font{
+  float:left; 
+  width: 250px; 
+  margin-top:110px;
+  margin-left: 60px; 
+  margin-bottom:110px;
+}
+    
+/* 컬러 */
+.pop_inner .color:after {
+  content:""; display:block; clear:both;
+}
+.pop_inner .color p {
+  margin: 0 0 16px 30px; 
+}
+.pop_inner .color1 {
+  float:left; 
+  width: 23px; 
+  height: 23px; 
+  border-radius: 50%; 
+  background:#FFFFFF;
+  margin-top: 3px;
+  border:0.2px solid #203242;
+}
+.pop_inner .color2 {
+  float:left; 
+  width: 23px; 
+  height: 23px; 
+  border-radius: 50%; 
+  background:#DEDEDE;
+  margin-top: 3px;
+}
+.pop_inner .color3 {
+  float:left; 
+  width: 23px; height: 23px; 
+  border-radius: 50%; 
+  background:#203242;
+}
+    
+/* 목업 */
+.pop .mockup {
+  position:relative; 
+  margin:0 auto; 
+  margin-top:300px ; 
+  width:893px; 
+  height: 692px; 
+  background:url("../mac/mac_y.png") no-repeat center top; 
+  margin-bottom:200px;
+}
+.pop .mockup .sc { 
+  position:absolute; 
+  left:80px; top:18px; 
+  width: 736px; 
+  height: 353px; 
+  /* border:2px dashed red;  */
+  padding-top:60px; 
+  overflow:hidden;
+} 
+.pop .mockup .sc img {
+  position:absolute; 
+  left:0; top:0px; 
+  width: 736px; 
+  animation:jeep 20s infinite alternate ease-in-out;
+}
+@keyframes jeep{
+	0% {transform:translateY(0px);}
+	100% {transform:translateY(-3085px);}
+}
+    
+/* 디테일 */
+.pop .detail {
+  width: 100%; 
+  background:#ececec;
+}
+.pop .inner2 {
+  /*border:2px dashed red;*/
+  padding-top:50px; 
+  margin:0 auto; 
+  width:980px; 
+}
+.pop .inner2 h5{
+  font-family:"Roboto"; 
+  font-size:23px; 
+  font-weight: 600; 
+  color:#323232; 
+  margin-top:50px; 
+}
+.pop .inner2 .line {
+  border-top:1px solid black; 
+  margin:12px 0 0 0; 
+}
+.pop .inner2 .detail1 .je1 {
+  margin:0 auto; 
+  margin:80px 0 80px 0; 
+  width: 980px; 
+  height: 2200px; 
+  box-shadow: 1px 1px 20px var(--color-shadow); 
+}
+.pop .inner2 .detail2 .je2{
+  margin:0 auto; 
+  margin:50px 0 80px 0; 
+  width: 980px; 
+  box-shadow: 1px 1px 20px var(--color-shadow); 
+}
+.pop .inner2 .detail1 p {
+  color:var(--color-text); 
+  font-family:Roboto; 
+  font-size: 18px; 
+  font-weight: 400; 
+  padding-top:50px;
+}
+    
+/* Footer */
+.pop .inner2 .work_footer {
+  text-align:center; 
+  color:var(--color-text); 
+  font-family:Roboto; 
+  font-size: 10px; 
+  font-weight: 600; 
+  padding :0px 0 50px 10px; 
+  margin-bottom: 0;
+}
+    
+/* ------------ sub page 공통 ---------- */
+.close { 
+  position:fixed; 
+  font-size: 50px;
+  right:70px; 
+  top:30px; 
+  color:var(--color-black); 
+}
+#to-top {
+  width: 42px;
+  height: 42px;
+  background-color: var(--color-font-darkgray);
+  color: var(--color-white);
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  bottom: 30px;
+  right: 50px;
+  z-index: 9;
+}
+
+</style>
+
+</head>
+
+<body>
+    
+<!-- 작품 페이지 -->
+<div class="pop">
+  <div class="pop_visual">
+    <p class="pop_title">JEEP<br><span>Web Design</span></p>
+  </div>
+  <div class="pop_inner">
+    <h4>JEEP<br><span>Web Design</span></h4>
+    <div class="type">
+      <h5>Type</h5>
+      <div class="line"></div>
+      <p>Web Design</p>
+    </div>
+
+    <div class="color">
+      <h5>Color</h5>
+      <div class="line"></div>
+      <div class="color1"></div>
+      <p>#ffffff</p>      
+      <div class="color2"></div>
+      <p>#dedede</p>      	                      			                		
+    </div>
+
+    <div class="font">
+      <h5>Font</h5>
+      <div class="line"></div>
+      <p>Helvetica</p>
+      <p>Noto Sans KR</p>                      			
+    </div>
+      
+    <p class="ex"><strong>JEEP</strong> 웹페이지 시안입니다.<br><br>
+      오프로드 자동차 브랜드 JEEP의 웹사이트를 디자인하였습니다.<br>
+      Helvetica 폰체체와 이미지에 대각선을 사용함으로써 모험, 자유, 강인하고 탐험적인 느낌을
+      주고자 하였습니다.      
+    </p>  
+  </div>
+
+  <div class="mockup">
+    <div class="sc"><img src="./je_page.jpg" alt="지프 가상 스크린 이미지"></div>
+  </div>
+
+  <div class="detail">
+    <div class="inner2">
+      <h5>Detail</h5>
+      <div class="line"></div>
+      <div class="detail1"><img src="./je1_detail1.jpg" alt="지프 메인 시안" class="je1"></div>
+      <div class="detail2"><img src="./je2_detail1.jpg" alt="지프 서브브 시안" class="je2"></div>
+      <p class="work_footer">Copyright(C) 2025 Yu-jung JEONG Portfolio, all right reserved.</p>
+    </div>
+  </div> 
+
+  <a href="#" class="close">x</a>
+</div>  
+
+<div id="to-top">
+  <div class="material-icons">arrow_upward</div>
+</div>
+
+<script>
+document.querySelector('.close').addEventListener('click', function() {
+  window.close();
+});
+</script>  
+
+<script> 
+const toTopEl = document.querySelector('#to-top');
+
+window.addEventListener('scroll', _.throttle(function(){
+console.log(window.scrollY); //스크롤 할때마다 콘솔에 scroll이 나옴
+if (window.scrollY > 900){
+  // 버튼 보이기
+  gsap.to('#to-top', .2, {
+    x: 0
+  });    
+} else {
+  // 버튼 숨기기
+  gsap.to('#to-top', .2, {
+    x: 100
+  });
+}
+}, 300));  
+
+toTopEl.addEventListener('click', function () {
+gsap.to(window, .7, {
+  scrollTo: 0
+});
+});
+</script> 
+
+</body>
+</html>
